@@ -1,0 +1,22 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+
+<h1>Current</h1>
+<a href="{% url 'createtodo' %}">Create new todo</a>
+
+{% for todo in todos %}
+<ul>
+  <li>
+    {% if todo.important %}<b>{% endif %}
+    <a href="{% url 'viewtodo' todo.id %}"><p>{{ todo.title }}</p></a>
+    {% if todo.important %}</b>{% endif %}
+    {% if todo.memo %}
+    <p>- {{ todo.memo|safe|truncatechars:100 }}</p>
+    {% endif %}
+    <!-- <h5>{{ todo.created|date:'f A l d M Y e' }}</h5> -->
+  </li>
+</ul>
+
+
+{% endfor %}
+{% endblock %}

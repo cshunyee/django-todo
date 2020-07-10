@@ -1,0 +1,18 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+
+{% if todo.important %}<b>{% endif %}
+<h1>{{ todo.title }}</h1>
+{% if todo.important %}</b>{% endif %}
+<h5>{{ todo.created|date:'f A l d M Y e' }}</h5>
+{% if todo.memo %}
+<p>- {{ todo.memo|safe}}</p>
+{% endif %}
+
+<form action="{% url 'viewtodo' todo.id %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" name="submit">Update</button>
+</form>
+
+{% endblock %}
