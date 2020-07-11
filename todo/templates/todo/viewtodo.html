@@ -1,18 +1,29 @@
 {% extends 'todo/base.html' %}
 {% block content %}
 
-{% if todo.important %}<b>{% endif %}
-<h1>{{ todo.title }}</h1>
-{% if todo.important %}</b>{% endif %}
-<h5>{{ todo.created|date:'f A l d M Y e' }}</h5>
-{% if todo.memo %}
-<p>- {{ todo.memo|safe}}</p>
-{% endif %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-7 text-center">
+    <h1>{{ todo.title }}</h1>
+    <small><em>{{ todo.created|date:'f A l d M Y' }} created</em></small><br>
+    <hr>
+  </div>
+</div>
 
-<form action="{% url 'viewtodo' todo.id %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" name="submit">Update</button>
-</form>
+<div class="row justify-content-center mt-3">
+  <div class="col-md-7 text-center">
+    {% if todo.memo %}
+    <p>{{ todo.memo|safe}}</p>
+    {% endif %}
+  </div>
+</div>
+
+
+<div class="row justify-content-center mt-5">
+  <div class="text-center">
+    {% csrf_token %}
+    <a href="{% url 'edittodo' todo.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'currenttodos' %}" class="btn btn-dark">Back</a>
+  </div>
+</div>
 
 {% endblock %}
